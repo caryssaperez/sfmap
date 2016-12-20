@@ -1,0 +1,41 @@
+<div id="directions">
+  <md-button class="md-fab md-mini" aria-label="Directions">
+    i
+     <md-tooltip md-visible="tooltip.showTooltip" md-direction="bottom">
+       Hover over a node to see the position names.<br/>
+       Click a node to more details about the position.<br/>
+       You can zoom and pan around the chart.
+     </md-tooltip>
+   </md-button>
+</div>
+
+<div id="searchBox">
+  <md-content>
+    <form ng-submit="$event.preventDefault()">
+      <md-autocomplete ng-disabled="$ctrl.isDisabled" md-no-cache="$ctrl.noCache" md-selected-item="$ctrl.selectedItem" md-search-text="$ctrl.searchText" md-selected-item-change="$ctrl.selectedItemChange(item)" md-items="item in $ctrl.querySearch($ctrl.searchText)" md-item-text="item.name" md-min-length="1" placeholder="Enter a position name" md-menu-class="autocomplete-custom-template">
+       <md-not-found>
+         No positions matching "{{$ctrl.searchText}}" were found.
+       </md-not-found>
+       <md-item-template>
+          <p class="item-title">
+            {{item.name}}
+          </p>
+          <p class="item-metadata">
+            <span class="item-metastat">
+                {{item.team}},
+            </span>
+            <span class="item-metastat">
+              {{item.cloud}} Cloud
+            </span>
+          </p> 
+        </md-item-template>
+     </md-autocomplete>
+   </form>
+ </md-content>
+</div>
+
+<div id="chart"></div>
+
+<div id="details">
+  <ui-view></ui-view>
+</div>

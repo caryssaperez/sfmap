@@ -1,0 +1,216 @@
+/*******************************/
+/*          SF Clouds          */ 
+/*******************************/
+
+#cloudBox {
+  width: 450px;
+  height: 450px;
+  margin: 0 auto;
+  padding-right: 5%;
+}
+
+.cls-1 {
+  fill:url(#linear-gradient);
+}
+
+.cls-2 {
+  fill:url(#linear-gradient-2);
+}
+
+.cls-3 {
+  fill:url(#linear-gradient-3);
+}
+
+.cls-4 {
+  fill:url(#linear-gradient-4);
+}
+
+.cls-5 {
+  fill:url(#linear-gradient-5);
+}
+
+.cls-6 {
+  fill:url(#linear-gradient-6);
+}
+
+.cls-7 {
+  fill:url(#linear-gradient-7);
+}
+
+.cls-8 {
+  fill:url(#linear-gradient-8);
+}
+
+.cls-9 {
+  fill:none;
+}
+
+.cls-10 {
+  fill:url(#linear-gradient-9);
+}
+
+.cls-11 {
+  opacity:0.8;
+}
+
+.cls-12 {
+  clip-path:url(#clip-path);
+}
+
+.cls-13 {
+  fill:#ed8b00;
+}
+
+.cls-14 {
+  clip-path:url(#clip-path-2);
+}
+
+.cls-15 {
+  fill:#963cbd;
+}
+
+.cls-16 {
+  clip-path:url(#clip-path-3);
+}
+
+.cls-17 {
+  fill:#ffc72c;
+}
+
+.cls-18 {
+  clip-path:url(#clip-path-4);
+}
+
+.cls-19 {
+  fill:#00b3a9;
+}
+
+.cls-20 {
+  clip-path:url(#clip-path-5);
+}
+
+.cls-21 {
+  fill:#001871;
+}
+
+.cls-22 {
+  clip-path:url(#clip-path-6);
+}
+
+.cls-23 {
+  fill:#418fde;
+}
+
+.cls-24 {
+  clip-path:url(#clip-path-7);
+}
+
+.cls-25 {
+  mask:url(#mask);
+}
+
+.cls-26 {
+  fill:url(#linear-gradient-10);
+}
+
+.cls-27 {
+  clip-path:url(#clip-path-8);
+}
+
+.cls-28 {
+  mask:url(#mask-2);
+}
+
+.cls-29 {
+  fill:url(#linear-gradient-11);
+}
+
+.cls-30 {
+  clip-path:url(#clip-path-9);
+}
+
+.cls-31 {
+  mask:url(#mask-3);
+}
+
+.cls-32 {
+  fill:url(#linear-gradient-12);
+}
+
+.cls-33 {
+  clip-path:url(#clip-path-10);
+}
+
+.cls-34 {
+  mask:url(#mask-4);
+}
+
+.cls-35 {
+  fill:url(#linear-gradient-13);
+}
+
+.cls-36 {
+  clip-path:url(#clip-path-11);
+}
+
+.cls-37 {
+  mask:url(#mask-5);
+}
+
+.cls-38 {
+  fill:url(#linear-gradient-14);
+}
+
+.cls-39 {
+  clip-path:url(#clip-path-12);
+}
+
+.cls-40 {
+  mask:url(#mask-6);
+}
+
+.cls-41 {
+  fill:url(#linear-gradient-15);
+}
+
+.cls-42 {
+  mask:url(#mask-7);
+}
+
+.cls-43 {
+  fill:url(#linear-gradient-16);
+}
+
+.cls-44 {
+  clip-path:url(#clip-path-14);
+}
+
+.cls-45 {
+  fill:url(#linear-gradient-18);
+}
+
+.cls-46 {
+  opacity:0.85;
+}
+
+.cls-47 {
+  opacity:0.2;
+}
+
+.cls-48 {
+  clip-path:url(#clip-path-15);
+}
+
+.cls-49,.cls-51 {
+  fill:#fff;
+}
+
+.cls-50 {
+  opacity:0.53;
+  fill:url(#radial-gradient);
+}
+
+.cls-51 {
+  fill-rule:evenodd;
+}
+

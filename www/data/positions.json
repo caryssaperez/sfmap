@@ -1,0 +1,266 @@
+{
+  "nodes" : [
+    { 
+      "id": "creative-developer",
+      "name": "Creative Developer", 
+      "team": "SE Creative Services", 
+      "cloud": "Marketing",
+      "parent": "Creative Services Manager",
+      "description" : "The Creative Developer focuses on creating highly polished in-room experiences that effectively and efficiently showcase Salesforce capabilities. They provide support to Creative Strategists, BizCons, and SEs to design and develop compelling demo assets and presentations."
+    },
+    { 
+      "id": "digital-designer",
+      "name": "Digital Designer", 
+      "team": "SE Creative Services", 
+      "cloud":"Marketing",
+      "parent": "Creative Services Manager",
+      "description" : "The Digital Designer focuses on creating highly polished visuals that effectively and efficiently communicate information. They provide support to Creative Strategists, BizCons, and SEs to create compelling presentations and design demo assets."
+    },
+    { 
+      "id": "creative-strategist",
+      "name": "Creative Strategist", 
+      "team": "SE Creative Services", 
+      "cloud":"Marketing",
+      "parent": "Creative Services Manager",
+      "description" : "The Creative Strategist partners with the AE, BizCon, and SE to develop the Salesforce for Marketing strategy and execute effective communication in a customer meeting. They serve as our master storytellers helping customers envision how Salesforce can transform their business. They influence the in-room experience through visual assets, story development, and provide creative direction to the other members of the team."
+    },
+    { 
+      "id": "creative-services-manager",
+      "name": "Creative Services Manager", 
+      "team": "SE Creative Services", 
+      "cloud":"Marketing",
+      "parent": "Innovation Lab Director",
+      "description" : ""
+    },
+    { 
+      "id": "r-and-d-manager",
+      "name": "R&D Manager", 
+      "team": "SE R&D", 
+      "cloud":"Marketing",
+      "parent": "Innovation Lab Director",
+      "description" : ""
+    },
+    { 
+      "id": "innovation-lab-director",
+      "name": "Innovation Lab Director", 
+      "team": "SE Innovation Lab", 
+      "cloud":"Marketing",
+      "parent": "Global Solutions Engineering VP",
+      "description" : ""
+    },
+    { 
+      "id": "solutions-developer",
+      "name": "Solutions Developer", 
+      "team": "SE R&D", 
+      "cloud":"Marketing",
+      "parent": "R&D Manager",
+      "description" : "The Solutions Developer role is responsible for developing, designing, and maintaining our global sales demonstration environments, and tools."
+    },
+    { 
+      "id": "solutions-support",
+      "name": "Solutions Support", 
+      "team": "SE R&D", 
+      "cloud":"Marketing",
+      "parent": "R&D Manager",
+      "description" : "The Solutions Support role is responsible for developing and supporting our global sales demonstration environments."
+    },
+    { 
+      "id": "solutions-designer",
+      "name": "Solutions Designer", 
+      "team": "SE R&D", 
+      "cloud":"Marketing",
+      "parent": "R&D Manager",
+      "description" : "The Solutions Designer role is responsible for designing, developing, and maintaining our global sales demonstration assets, environments, and tools."
+    },
+    {
+      "id": "global-solutions-engineering-vp",
+      "name": "Global Solutions Engineering VP", 
+      "team": "Global Solutions Engineering", 
+      "cloud":"Marketing",
+      "parent": "null",
+      "description" : ""
+    },
+    {
+      "id": "ops-director",
+      "name": "Ops Director", 
+      "team": "SE Ops", 
+      "cloud":"Marketing",
+      "parent": "Global Solutions Engineering VP",
+      "description" : ""
+    },
+    {
+      "id": "ops-manager",
+      "name": "Ops Manager", 
+      "team": "SE Ops", 
+      "cloud":"Marketing",
+      "parent": "Ops Director",
+      "description" : ""
+    },
+    {
+      "id": "solutions-analyst",
+      "name": "Solutions Analyst", 
+      "team": "SE Ops", 
+      "cloud":"Marketing",
+      "parent": "Ops Manager",
+      "description" : ""
+    },
+    {
+      "id": "sales-ops-manager",
+      "name": "Sales Operations Manager", 
+      "team": "SE Ops", 
+      "cloud":"Marketing",
+      "parent": "Ops Director",
+      "description" : ""
+    },
+    {
+      "id": "rfp-analyst",
+      "name": "Global RFP Analyst", 
+      "team": "SE Ops", 
+      "cloud":"Marketing",
+      "parent": "Sales Operations Manager",
+      "description" : ""
+    },
+    {
+      "id": "strategic-se-vp",
+      "name": "Strategic Solutions Engineering VP", 
+      "team": "SE", 
+      "cloud":"Marketing",
+      "parent": "Global Solutions Engineering VP",
+      "description" : ""
+    },
+    {
+      "id": "biz-con-director",
+      "name": "Business Consultant Director", 
+      "team": "SE", 
+      "cloud":"Marketing",
+      "parent": "Strategic Solutions Engineering VP",
+      "description" : ""
+    },
+    {
+      "id": "biz-con",
+      "name": "Business Consultant", 
+      "team": "SE", 
+      "cloud":"Marketing",
+      "parent": "Business Consultant Director",
+      "description" : ""
+    },
+    {
+      "id": "industry-sol-manager",
+      "name": "Industry Solutions Manager", 
+      "team": "SE", 
+      "cloud":"Marketing",
+      "parent": "Global Solutions Engineering VP",
+      "description" : ""
+    },
+    {
+      "id": "se-manager",
+      "name": "Solutions Engineering Manager", 
+      "team": "SE", 
+      "cloud":"Marketing",
+      "parent": "Global Solutions Engineering VP",
+      "description" : ""
+    },
+    {
+      "id": "se",
+      "name": "Solutions Engineer", 
+      "team": "SE", 
+      "cloud":"Marketing",
+      "parent": "Solutions Engineering Manager",
+      "description" : ""
+    },
+    {
+      "id": "exec-assistant",
+      "name": "Executive Assistant", 
+      "team": "SE", 
+      "cloud":"Marketing",
+      "parent": "Global Solutions Engineering VP",
+      "description" : ""
+    }
+  ],
+  "links" : [
+    {
+      "source" : "creative-services-manager",
+      "target" : "creative-developer"
+    },
+    {
+      "source" : "creative-services-manager",
+      "target" : "creative-strategist"
+    },
+    {
+      "source" : "creative-services-manager",
+      "target" : "digital-designer"
+    },
+    {
+      "source" : "r-and-d-manager",
+      "target" : "solutions-support"
+    },
+    {
+      "source" : "r-and-d-manager",
+      "target" : "solutions-developer"
+    },
+    {
+      "source" : "r-and-d-manager",
+      "target" : "solutions-designer"
+    },
+    {
+      "source" : "innovation-lab-director",
+      "target" : "creative-services-manager"
+    },
+    {
+      "source" : "innovation-lab-director",
+      "target" : "r-and-d-manager"
+    },
+    {
+      "source" : "global-solutions-engineering-vp",
+      "target" : "innovation-lab-director"
+    },
+    {
+      "source" : "global-solutions-engineering-vp",
+      "target" : "ops-director"
+    },
+    {
+      "source" : "ops-director",
+      "target" : "ops-manager"
+    },
+    {
+      "source" : "ops-manager",
+      "target" : "solutions-analyst"
+    },
+    {
+      "source" : "ops-director",
+      "target" : "sales-ops-manager"
+    },
+    {
+      "source" : "sales-ops-manager",
+      "target" : "rfp-analyst"
+    },
+    {
+      "source" : "global-solutions-engineering-vp",
+      "target" : "strategic-se-vp"
+    },
+    {
+      "source" : "strategic-se-vp",
+      "target" : "biz-con-director"
+    },
+    {
+      "source" : "biz-con-director",
+      "target" : "biz-con"
+    },
+    {
+      "source" : "global-solutions-engineering-vp",
+      "target" : "industry-sol-manager"
+    },
+    {
+      "source" : "global-solutions-engineering-vp",
+      "target" : "se-manager"
+    },
+    {
+      "source" : "se-manager",
+      "target" : "se"
+    },
+    {
+      "source" : "global-solutions-engineering-vp",
+      "target" : "exec-assistant"
+    }
+  ]
+}

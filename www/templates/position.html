@@ -1,0 +1,25 @@
+<div id="detailedLook">
+  <div id="breadcrumbsBox">
+    <ul class="path">
+      <li ng-repeat="crumb in $ctrl.breadcrumbs">
+          {{ crumb.name }} &nbsp;<span ng-show="!$last">></span></span>
+      </li>
+    </ul>
+  </div>
+  <div id="details">
+    <h1>{{ $ctrl.position.name }}</h1>
+    <p id="metaDetails">
+      {{ $ctrl.position.team }}, {{ $ctrl.position.cloud }} Cloud
+    </p>
+    <div class="description" ng-hide="$ctrl.editMode">
+      {{ $ctrl.position.description }}
+      <a href="#" ng-click="$ctrl.edit();$event.preventDefault();">Edit description</a>
+    </div>
+    <div class="description" ng-show="$ctrl.editMode">
+        <textarea rows="4" cols="50" ng-model="$ctrl.editDescription" ng-show="$ctrl.editMode"></textarea>
+        <a href="#" ng-click="$ctrl.save();$event.preventDefault();">Save</a>
+        or
+        <a href="#" ng-click="$ctrl.cancel();$event.preventDefault();">cancel</a>
+    </div>
+  </div>
+</div>

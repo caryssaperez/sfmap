@@ -6,7 +6,9 @@
       "team": "SE Creative Services", 
       "cloud": "Marketing",
       "parent": "Creative Services Manager",
-      "description" : "The Creative Developer focuses on creating highly polished in-room experiences that effectively and efficiently showcase Salesforce capabilities. They provide support to Creative Strategists, BizCons, and SEs to design and develop compelling demo assets and presentations."
+      "description" : "The Creative Developer focuses on creating highly polished in-room experiences that effectively and efficiently showcase Salesforce capabilities. They provide support to Creative Strategists, BizCons, and SEs to design and develop compelling demo assets and presentations.",
+      "primary": "Biz",
+      "secondary": "AEs and Experts"
     },
     { 
       "id": "digital-designer",
@@ -86,7 +88,7 @@
       "team": "SE Ops", 
       "cloud":"Marketing",
       "parent": "Global Solutions Engineering VP",
-      "description" : ""
+      "description" : "The Ops Director "
     },
     {
       "id": "ops-manager",
@@ -102,7 +104,7 @@
       "team": "SE Ops", 
       "cloud":"Marketing",
       "parent": "Ops Manager",
-      "description" : ""
+      "description" : "The Solutions Analyst helps roll out enablement, reevaluating the onboarding program, "
     },
     {
       "id": "sales-ops-manager",
@@ -118,7 +120,7 @@
       "team": "SE Ops", 
       "cloud":"Marketing",
       "parent": "Sales Operations Manager",
-      "description" : ""
+      "description" : "The RFP Analyst engages directly with the sales team, including AEs and RVPs. Their secondary role includes interfacing with SEs, Bizcons, and Product Management."
     },
     {
       "id": "strategic-se-vp",

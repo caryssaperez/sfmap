@@ -285,7 +285,7 @@ mapApp.component('jobs', {
         allData = setupData(data); // Format data with setupData function
         
         zoom = d3.behavior.zoom()
-                 .scaleExtent([0.5, 4])
+                 .scaleExtent([0.7, 3])
                  .on("zoom", zoomed);
                  
         drag = d3.behavior.drag()
@@ -608,7 +608,7 @@ mapApp.component('jobs', {
             .append("line")
             .attr("class", "link")
             .attr("stroke", "#ddd")
-            .attr("stroke-opacity", 0.8)
+            .attr("stroke-opacity", 0.4)
             .attr("x1", function(d) {
               return d.source.x;
             }).attr("y1", function(d) {

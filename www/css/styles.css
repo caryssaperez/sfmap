@@ -8,10 +8,15 @@ html, body {
 }
 
 #wrapper {
-  max-width: 1100px;
   height: 100%;
   margin: 0 auto;
+  min-width: 1000px;
+  max-width: 1100px;
 }
+
+/*******************************/
+/* Input Placeholder Text Color*/ 
+/*******************************/
 
 ::-webkit-input-placeholder {
    color: #00A1DF;
@@ -87,7 +92,30 @@ md-autocomplete button {
 }
 
 /*******************************/
-/*         Map Tooltip         */ 
+/*         Add Button          */ 
+/*******************************/
+
+#addBox {
+  position: absolute;
+  top: 23px; 
+  left: 82%;
+  width: 100px;
+  height: 60px;
+  margin: 0;
+  font-size: 14px;
+}
+
+#addBox a {
+  text-decoration: none;
+  color: #00A1DF;
+}
+
+#addBox a:hover {
+  color: #5dc1db;
+}
+
+/*******************************/
+/*       Map Directions        */ 
 /*******************************/
 
 .md-button.md-fab.md-mini {
@@ -128,17 +156,15 @@ md-tooltip .md-content {
 
 #chart {
   position: relative;
-  top: -10px;
-  margin: 0 auto;
-  width: 700px;
+  top: 0px;
+  margin: 0;
+  width: 45%;
+  float: left;
 }
 
 #chart svg {
   position: relative;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  -ms-transform: translateX(-50%);
-  transform: translateX(-50%);
+  left: 2%;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -147,7 +173,6 @@ md-tooltip .md-content {
   user-select: none;
   pointer-events: all;
   cursor: all-scroll;
-  background-color: #F6F6F6;
 }
 
 .node {
@@ -169,39 +194,7 @@ md-tooltip .md-content {
 
 .link {
   fill: none;
-  stroke: #d2d2d2;
   stroke-width: 2px;
-}
-
-/*******************************/
-/*    Position Description     */ 
-/*******************************/
-#detailedLook {
-  margin: 0 auto;
-  width: 700px;
-}
-
-#detailedLook h1 {
-  text-align: center;
-  font-weight: 200;
-  margin-bottom: 5px;
-}
-
-#details {
-  padding-left: 10px;
-}
-
-#metaDetails {
-  font-size: 11px;
-  text-align: center;
-  width: 100%;
-  height: auto;
-  margin-top: 0;
-  padding-top:0;
-}
-
-.description {
-  width: 100%;
 }
 
 div.tooltip {	
@@ -223,17 +216,18 @@ div.tooltip {
 /*******************************/
 #breadcrumbsBox {
   position: relative;
-  top:0;
+  top:0px;
   width: 100%;
   height: auto;
   display: block;
+  margin:20px 0 20px 0;
 }
 
-#breadcrumbsBox ul.path {
+#breadcrumbsBox .path {
   list-style-type: none;
   height: auto;
   display: block;
-  padding: 0 0 0 10px;
+  padding: 0;
   margin: 0;
 }
 
@@ -255,3 +249,138 @@ div.tooltip {
 #breadcrumbsBox .path li a:hover {
   color: #00A1DF;
 }
+
+/*******************************/
+/*         Edit Links          */ 
+/*******************************/
+#editBox {
+  text-align: right;
+  width: 100%;
+  font-size: 12px;
+  color: #00A1DF;
+}
+
+#editBox a svg {
+  fill: #00A1DF;
+}
+
+#editBox a svg:hover {
+  fill: #5dc1db;
+}
+
+#editBox a {
+  text-decoration: none;  
+  color: #00A1DF;
+  position: relative;
+  bottom: 2px;
+}
+
+#editBox a:hover {
+  color: #5dc1db;
+}
+
+/*******************************/
+/*    Position Description     */ 
+/*******************************/
+#nestedView {
+  position: relative;
+  top: 0;
+  right: 0;
+  margin: 0;
+  width: 53%;
+  float: right;
+  padding-right: 2%;
+}
+
+#detailedLook {
+  width: 100%;
+}
+
+#editInfo input[type=text], #addNew input[type=text] {
+  width: 100%;
+  display: inline-block;
+  border: none;
+  border-bottom: 1px solid #00A1DF;
+  box-sizing: border-box;
+  font-size: 14px;
+  margin: 5px 0 15px 0;
+}
+
+#editInfo textarea, #addNew textarea{
+  border: 1px solid #00A1DF;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 5px 0 15px 0;
+  font-size: 14px;
+}
+
+#editInfo input[type=text]:focus, 
+#details textarea:focus, 
+#addNew input[type=text]:focus, 
+#addNew textarea:focus {
+  outline: none;
+}
+
+#editInfo label, #addNew label {
+  font-size: 14px;
+  display: block;
+  color: #00A1DF;
+}
+
+#detailedLook h1 {
+  font-weight: 200;
+  margin-bottom: 0;
+}
+
+.teamCloud {
+  font-size: 12px;
+  margin-top: 0;
+}
+
+.description {
+  margin-top: 20px;
+  font-size: 16px; 
+}
+
+.primary, .secondary {
+  font-size: 16px; 
+  margin-top: 20px;
+}
+
+/*******************************/
+/*          Resources          */ 
+/*******************************/
+
+.resources {
+  margin-top: 20px;
+}
+
+.resourceList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.resourceInput input {
+  font-size: 14px;
+  border: none;
+  border-bottom: 1px solid #00A1DF;
+  box-sizing: border-box;
+  margin: 5px 0 15px 0;
+}
+
+.resourceInput input:focus {
+  outline: none;
+}
+
+.resourceInput .resourceKey {
+  float: left;
+  width: 28%;
+  margin-right: 4%;
+}
+
+.resourceInput .resourceValue {
+  float: right;
+  width: 68%;
+}
+

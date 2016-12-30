@@ -1,11 +1,10 @@
 mapApp.component('jobs', {
-  bindings: {jobs: '<'},
+  bindings: {data: '<'},
   templateUrl: 'templates/jobs.html',
   
   controller : function($timeout, $q, $log, $state, BreadcrumbService) {
     var self = this;
-    var data =  self.jobs;  
-    $log.info(data);
+    var data =  self.data;  
     
     // Function placed on scope to set the selected node using the BreadcrumbService
     self.updateSelected = function(selected) {
@@ -21,7 +20,7 @@ mapApp.component('jobs', {
   // BEGIN HELP TOOLTIP
   //-----------------------------
     
-    // Set the chart tooltip to not be seen and open direction to nothing
+    // Set the chart tooltip to not be open on load
     self.tooltip = {
       showTooltip : false,
       tipDirection : ''
@@ -43,7 +42,7 @@ mapApp.component('jobs', {
 
     // Function that queries the data with what the user types in the input
     function querySearch (query) {
-      var results = query ? data.nodes.filter(createFilterFor(query)) : data,
+      var results = query ? data.filter(createFilterFor(query)) : data,
          deferred;
       if (self.simulateQuery) {
        deferred = $q.defer();
@@ -60,7 +59,7 @@ mapApp.component('jobs', {
     // and updates the chart to reflect the node selected from autocomplete.
     function selectedItemChange(item) {
       if(item) {
-        self.updateSelected(item.id);
+        self.updateSelected(item.path);
         self.myChart.updateSearch(item);
       }
     } // End selectedItemChange()
@@ -68,12 +67,13 @@ mapApp.component('jobs', {
     // Function that maps a value for each node in the data for the autocomplete
     // input. 
     function loadAll() {
-      return data.nodes.map(function (node) {
+      return data.map(function (node) {
           node.value = node.name.toLowerCase();
           return node;
       });
     }// End loadAll()
-
+    
+    // Function that creates the query and checks item for the term queried.
     function createFilterFor(query) {
       var lowercaseQuery = angular.lowercase(query);
 
@@ -97,9 +97,9 @@ mapApp.component('jobs', {
     self.myChart;
 
     // Get the root from the data [NEEDS TO BE DYNAMIC]
-    for (var i = 0; i < data.nodes.length; i++) {
-      if(data.nodes[i].id == 'innovation-lab-director') {
-        self.root = data.nodes[i];
+    for (var i = 0; i < data.length; i++) {
+      if(data[i].path == 'global-solutions-engineering-vp') {
+        self.root = data[i];
       }
     }
 
@@ -245,34 +245,70 @@ mapApp.component('jobs', {
 
     // Function that encapsulates the entire chart for reuse, returns a d3 chart object
     self.makeChart = function() {
-      var allData, charge, curLinksData, curNodesData, filter, filterLinks, filterNodes, force, forceTick, groupCenters, height, hideDetails, layout, link, linkedByIndex, linksG, mapNodes, moveToRadialLayout, neighboring, network, node, nodeColors, nodeCounts, nodesG, setFilter, setLayout, setupData, showDetails, sort, sortedPositions, strokeFor, tooltip, update, updateCenters, updateLinks, updateNodes, width;
+      // Initialize the arrays for the nodes
+      var allData = [];
+      var links = [];
+      var curLinksData = []; 
+      var curNodesData = [];
+      
+      var filterLinks;
+      var filterNodes;
+      var forceTick;
+      var mapNodes;
+      var neighboring;
+      var network; 
+      var nodeCounts;
+      var setFilter;
+      var setLayout;
+      var setupData; 
+      var showDetails;
+      var sortedPositions; 
+      var strokeFor; 
+      var updateCenters;
+      var updateLinks;
+      var updateNodes;
+      var update;
       var div;
       var zoom;
       var drag;
+      var links;
+      var teamCount;
+      var charge;
       
       // Set dimensions of chart
-      width = 700;
-      height = 400;
+      var width = 450;
+      var height = 500;
       
-      // Initialize the arrays for the nodes
-      allData = [];
-      curLinksData = [];
-      curNodesData = [];
-      linkedByIndex = {};
+      var linkedByIndex = {};
+      
       // Initialize svg group variables
-      nodesG = null;
-      linksG = null;
+      var nodesG = null;
+      var linksG = null;
       
       // Initialize node and link pointers
-      node = null;
-      link = null;
+      var node = null;
+      var link = null;
       
-      layout = "force"; // Sets layout to force diagram
-      filter = "all"; // Sets the initial value of filter to all to show all nodes
-      sort = "name"; // Sorts by name at first
-      groupCenters = null;
-      force = d3.layout.force(); // Set layout to a force diagram
-      nodeColors = d3.scale.category20(); // Set the colors of the nodes to a built in d3 color scheme
+      var layout = "force"; // Sets layout to force diagram
+      var sort = "name"; // Sorts by name at first
+      var groupCenters = null;
+      var force = d3.layout.force(); // Set layout to a force diagram
+      var filter = "all"; // Sets the initial value of filter to all to show all nodes
+      
+      // Object that specifies colors for each team, change this if you want to set a new color
+      // based on the team. The keys must match the assigned team names.
+      var nodeColors = { "Creative Services" : "#6B2F7E",
+                         "R+D" : "#1378B7",
+                         "Innovation Lab" : "#1AA1DB",
+                         "Solutions Engineering" : "#E377C2",
+                         "Business Consulting" : "#A1D99B",
+                         "SE Operations" : "#9E9AC8",
+                         "SE" : "#ED8B00",
+                         "Experts" : "#D62728",
+                         "Industry Solutions" : "#FDD0A2"
+                       };
+                   
+      var colorKeys = Object.keys(nodeColors);
       
       // Function that sets the force between the nodes
       charge = function(node) {
@@ -334,8 +370,8 @@ mapApp.component('jobs', {
         // curNodesData = filterNodes(allData.nodes);
         // curLinksData = filterLinks(allData.links, curNodesData);
         
-        curNodesData = allData.nodes;
-        curLinksData = allData.links;
+        curNodesData = allData;
+        curLinksData = links;
         
         // If the chart is in a radial layout, the nodes need to be rearranged
         if (layout === "tree") {
@@ -390,13 +426,18 @@ mapApp.component('jobs', {
         return node.each(function(d) {
           var element = d3.select(this);
           
-          if (searchTerm.id.length > 0 && (d.id == searchTerm.id)) {
+          if (searchTerm.path.length > 0 && (d.path == searchTerm.path)) {
             $(this).d3Click();
             return d.searched = true;
           } else {
             d.searched = false;
+            
             return element.style("fill", function(d) {
-              return nodeColors(d.name);
+              for(var i = 0; i < colorKeys.length; i++) {
+                if(d.team === colorKeys[i]) {
+                  return nodeColors[d.team];
+                }
+              }
             }).style("stroke-width", 1.0);
           }
         });
@@ -409,7 +450,11 @@ mapApp.component('jobs', {
           var element = d3.select(this);
           d.searched = false;
           return element.style("fill", function(d) {
-            return nodeColors(d.name);
+            for(var i = 0; i < colorKeys.length; i++) {
+              if(d.team === colorKeys[i]) {
+                return nodeColors[d.team];
+              }
+            }
           }).style("stroke-width", 1.0);
         });
       } // End of network.resetSearch()
@@ -427,9 +472,10 @@ mapApp.component('jobs', {
       setupData = function(data) {
         var circleRadius = 7;
         var nodesMap;
+        var connection = {};
                 
         // Set initial x,y values for each node based on the chart's dimensions
-        data.nodes.forEach(function(n) {
+        data.forEach(function(n) {
           var rand;
           
           n.x = rand = Math.floor(Math.random() * width);
@@ -440,15 +486,27 @@ mapApp.component('jobs', {
         });
         
         // Map the id's of each node to the node objects
-        nodesMap = mapNodes(data.nodes);
+        nodesMap = mapNodes(data);
         
+        // Make the links array
+        for(var i = 0; i < data.length; i++) {
+          if(data[i] != null) {
+            for(var j = 0; j < data[i].reports.length; j++){
+              connection["source"] = data[i].path;
+              connection["target"] = data[i].reports[j];
+              links.push(connection);
+              connection = {};
+            }
+          }
+        }
+                        
         // Links are currently mapped between the nodes in JSON so they need to
         // reworked to point at the node objects instead
-        data.links.forEach(function(l) {
+        links.forEach(function(l) {
           l.source = nodesMap.get(l.source);
           l.target = nodesMap.get(l.target);
           
-          return linkedByIndex[l.source.id + "," + l.target.id] = 1;
+          return linkedByIndex[l.source.path + "," + l.target.path] = 1;
         });
         
         return data;
@@ -459,7 +517,7 @@ mapApp.component('jobs', {
         var nodesMap;
         nodesMap = d3.map();
         nodes.forEach(function(n) {
-          return nodesMap.set(n.id, n);
+          return nodesMap.set(n.path, n);
         });
         
         return nodesMap;
@@ -482,7 +540,7 @@ mapApp.component('jobs', {
       
       // Function that returns true if there is a link between two nodes
       neighboring = function(a, b) {
-        return linkedByIndex[a.id + "," + b.id] || linkedByIndex[b.id + "," + a.id];
+        return linkedByIndex[a.path + "," + b.path] || linkedByIndex[b.path + "," + a.path];
       }; // end neighboring()
       
       // Function to filter the nodes that are visible based off the filter
@@ -554,14 +612,14 @@ mapApp.component('jobs', {
       updateNodes = function() {
         node = nodesG.selectAll("circle.node")
                      .data(curNodesData, function(d) {
-                        return d.id;
+                        return d.path;
                      });
         
         node.enter()
             .append("circle")
             .attr("class", "node")
             .attr("id", function(d) {
-              return d.id;
+              return d.path;
             })
             .attr("cx", function(d) {
               return d.x;
@@ -573,7 +631,11 @@ mapApp.component('jobs', {
               return d.radius;
             })
             .style("fill", function(d) {
-              return nodeColors(d.name);
+              for(var i = 0; i < colorKeys.length; i++) {
+                if(d.team === colorKeys[i]) {
+                  return nodeColors[d.team];
+                }
+              }
             })
             .style("stroke", function(d) {
               return strokeFor(d);
@@ -602,7 +664,7 @@ mapApp.component('jobs', {
       updateLinks = function() {
         link = linksG.selectAll("line.link")
                      .data(curLinksData, function(d) {
-                       return d.source.id + "_" + d.target.id;
+                       return d.source.path + "_" + d.target.path;
                      });
         link.enter()
             .append("line")
@@ -664,7 +726,15 @@ mapApp.component('jobs', {
       
       // Function that returns the stroke color for a node
       strokeFor = function(d) {
-        return d3.rgb(nodeColors(d.name)).darker().toString();
+        var color;
+        
+        for(var i = 0; i < colorKeys.length; i++) {
+          if(d.team === colorKeys[i]) {
+            color = nodeColors[d.team];
+          }
+        }
+        
+        return d3.rgb(color).darker().toString();
       }; // End strokeFor()
       
       // Function that runs when a node is clicked. It changes the state based 
@@ -672,8 +742,8 @@ mapApp.component('jobs', {
       // darkens the links and nodes that neighbor the node clicked
       showDetails = function(d, i) {
         resetSearch();
-        self.updateSelected(d.id);
-        $state.go('jobs.position', { positionId: d.id });
+        self.updateSelected(d.path);
+        $state.go('jobs.position', { positionPath: d.path });
         
         d3.selectAll(".node").attr("r", 7);
         
@@ -758,7 +828,7 @@ mapApp.component('jobs', {
   //-----------------------------
   // START REFORMAT DATA
   //-----------------------------
-    var nodes = data.nodes; 
+    var nodes = data; 
     
     // Convert flat data into hierarchical data.
     var dataMap = nodes.reduce(function(map,node){

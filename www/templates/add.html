@@ -1,0 +1,33 @@
+<!-- Add New Position -->
+<div id="addNew">
+  <a href="#" ng-click="$ctrl.add();$event.preventDefault();">Add</a>
+  <label>Path</label>
+  <input type="text" ng-model="$ctrl.new.path"/><br/>
+  
+  <label>Name</label>
+  <input type="text" ng-model="$ctrl.new.name"/><br/>
+
+  <label>Team</label>
+  <input type="text" ng-model="$ctrl.new.team"/><br/>
+
+  <label>Cloud</label>
+  <input type="text" ng-model="$ctrl.new.cloud"/><br/>
+
+  <label>Description</label>
+  <textarea rows="4" cols="50" ng-model="$ctrl.new.description"></textarea><br/>
+  
+  <label>Parent</label>
+  <input type="text" ng-model="$ctrl.new.parent"/><br/>
+  
+  <label>Reports</label>
+  <input type="text" ng-model="$ctrl.new.reports"/><br/>
+
+  <label>Primary Relationships</label>
+  <input type="text" ng-model="$ctrl.new.primary"/><br/>
+
+  <label>Secondary Relationships</label>
+  <input type="text" ng-model="$ctrl.new.secondary"/><br/>
+  
+  <label>Resources</label>
+  <input type="text" ng-model="$ctrl.tempRes"/><br/>
+</div>

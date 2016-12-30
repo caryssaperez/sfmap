@@ -2,17 +2,30 @@ mapApp.component('position', {
   bindings: { position: '<' },
   templateUrl: 'templates/position.html',
   
-  controller : function($log, $state, $http,BreadcrumbService) {
+  controller : function($log, $state, $http, BreadcrumbService) {
     var self = this;
     self.breadcrumbs;
     self.data = BreadcrumbService.getData();
     self.selected = BreadcrumbService.getSelected();
     self.editMode = false;
+    
+    // Declare function variables to be defined later 
     self.save;
     self.cancel;
     self.edit;
-    self.editDescription;
     
+    // Initialize variables to store the data values of this position
+    self.editPath = "";
+    self.editName = "";
+    self.editTeam = "";
+    self.editCloud = "";
+    self.editDescription = "";
+    self.editParent = "";
+    self.editReports = [];
+    self.editPrimary= [];
+    self.editSecondary = [];
+    self.editResources = {};
+      
   //-----------------------------
   // BEGIN BREADCRUMBS
   //-----------------------------
@@ -20,7 +33,7 @@ mapApp.component('position', {
     // Function to search tree for selected object based on what job the user searched for on
     // the previous page
     var searchTree = function(node, path) {
-      if(node.id === self.selected){ // If search is found return, add the object to the path and return it
+      if(node.path === self.selected){ // If search is found return, add the object to the path and return it
         path.push(node);
         return path;
       } else if(node.children || node._children) { // If node has open or collapsed children,
@@ -49,20 +62,39 @@ mapApp.component('position', {
   //-----------------------------
   // BEGIN EDIT MODE
   //-----------------------------
-    
+  
     self.edit = function() {
       self.editMode = true;
+      self.editPath = self.position.path;
+      self.editName = self.position.name;
+      self.editTeam = self.position.team;
+      self.editCloud = self.position.cloud;
       self.editDescription = self.position.description;
+      self.editParent = self.position.parent;
+      self.editReports = self.position.reports;
+      self.editPrimary = self.position.primary;
+      self.editSecondary = self.position.secondary;
+      self.editResources = self.position.resources;
     }
     
     self.save = function() {
-      $http.put('/' + self.position.id, self.position)
+      self.position.path = self.editPath;
+      self.position.name = self.editName;
+      self.position.team = self.editTeam;
+      self.position.cloud = self.editCloud;
+      self.position.description = self.editDescription;
+      self.position.primary = self.editPrimary;
+      self.position.parent = self.editParent;
+      self.position.reports = self.editReports;
+      self.position.secondary = self.editSecondary;
+      self.position.resources = self.editResources;
+      
+      $http.put('/api/jobs/' + self.position._id, self.position)
            .success(function(data) {
-             self.position.description = self.editDescription;
              self.cancel();
            })
            .error(function(data) {
-             $log.info(data);
+             alert("Sorry, something went wrong.")
            });
     }
     

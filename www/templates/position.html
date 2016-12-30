@@ -1,25 +1,114 @@
 <div id="detailedLook">
-  <div id="breadcrumbsBox">
+  <div id="editBox">
+    <!-- Pencil SVG -->
+    <a href="#" ng-hide="$ctrl.editMode" ng-click="$ctrl.edit();$event.preventDefault();">
+      <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="10.000000pt" height="10.000000pt" viewBox="0 0 300.000000 300.000000" preserveAspectRatio="xMidYMid meet">
+        <g transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)" stroke="none">
+        <path d="M2265 2921 c-16 -10 -93 -82 -170 -160 l-140 -141 335 -335 335 -335
+        153 153 c105 105 155 162 161 185 20 71 7 89 -267 366 -142 142 -271 264 -289
+        272 -44 19 -82 17 -118 -5z"></path>
+        <path d="M1072 1737 l-763 -764 332 -331 c182 -183 335 -332 338 -332 3 0 350
+        344 771 765 l765 765 -330 330 c-181 181 -334 330 -340 330 -6 0 -353 -343
+        -773 -763z"></path>
+        <path d="M206 848 c-2 -7 -12 -60 -20 -118 -18 -112 -42 -252 -76 -445 -40
+        -223 -39 -215 -21 -214 9 0 36 4 61 9 46 9 203 36 395 70 61 11 157 27 215 36
+        58 9 107 19 110 21 5 5 -642 653 -653 653 -4 0 -9 -6 -11 -12z"></path>
+        </g>
+        <g transform="translate(0.000000,300.000000) scale(0.100000,-0.100000)" fill="#949494" stroke="none">
+        </g>
+      </svg>
+      <!-- end Pencil SVG -->
+
+      &nbsp;Edit
+    </a>
+    
+    <div ng-show="$ctrl.editMode" >
+      <a href="#" ng-click="$ctrl.save();$event.preventDefault();">Save</a>&nbsp;&nbsp;
+      <a href="#" ng-click="$ctrl.cancel();$event.preventDefault();">Cancel</a>
+    </div>
+  </div>
+  
+  <div id="breadcrumbsBox" ng-hide="$ctrl.editMode">
     <ul class="path">
       <li ng-repeat="crumb in $ctrl.breadcrumbs">
           {{ crumb.name }} &nbsp;<span ng-show="!$last">></span></span>
       </li>
     </ul>
   </div>
+  
   <div id="details">
-    <h1>{{ $ctrl.position.name }}</h1>
-    <p id="metaDetails">
-      {{ $ctrl.position.team }}, {{ $ctrl.position.cloud }} Cloud
-    </p>
-    <div class="description" ng-hide="$ctrl.editMode">
-      {{ $ctrl.position.description }}
-      <a href="#" ng-click="$ctrl.edit();$event.preventDefault();">Edit description</a>
+    <!-- Information -->
+    <div id="regularInfo" ng-hide="$ctrl.editMode">
+      <div class="name">
+        <h1>{{ $ctrl.position.name }}</h1>
+      </div>
+      
+      <div class="teamCloud">
+        {{ $ctrl.position.team }}, {{ $ctrl.position.cloud }} Cloud
+      </div>
+      
+      <div class="description">
+        {{ $ctrl.position.description }}
+      </div>
+      
+      <div class="primary">
+        Primary Relationships: 
+        <span ng-repeat="prime in $ctrl.position.primary">
+          {{ prime }}<span ng-show="!$last">,</span>
+        </span>
+      </div>
+      
+      <div class="secondary">
+        Secondary Relationships: 
+        <span ng-repeat="sec in $ctrl.position.secondary">
+          {{ sec }}<span ng-show="!$last">,</span>
+        </span>
+      </div>
+      
+      <div class="resources">
+        Resources<br/>
+        <ul class="resourceList">
+          <li ng-repeat="(key, value) in $ctrl.position.resources">
+            <a href="{{ value }}">{{ key }}</a>
+          </li>
+        </ul> 
+      </div>
     </div>
-    <div class="description" ng-show="$ctrl.editMode">
-        <textarea rows="4" cols="50" ng-model="$ctrl.editDescription" ng-show="$ctrl.editMode"></textarea>
-        <a href="#" ng-click="$ctrl.save();$event.preventDefault();">Save</a>
-        or
-        <a href="#" ng-click="$ctrl.cancel();$event.preventDefault();">cancel</a>
+    
+    <!-- Edit Information -->
+    <div id="editInfo" ng-show="$ctrl.editMode">
+      <label>Path</label>
+      <input type="text" ng-model="$ctrl.editPath"/><br/>
+      
+      <label>Name</label>
+      <input type="text" ng-model="$ctrl.editName"/><br/>
+  
+      <label>Team</label>
+      <input type="text" ng-model="$ctrl.editTeam"/><br/>
+    
+      <label>Cloud</label>
+      <input type="text" ng-model="$ctrl.editCloud"/><br/>
+    
+      <label>Description</label>
+      <textarea rows="4" cols="50" ng-model="$ctrl.editDescription"></textarea><br/>
+      
+      <label>Parent</label>
+      <input type="text" ng-model="$ctrl.editParent"/><br/>
+      
+      <label>Reports</label>
+      <input type="text" ng-model="$ctrl.editReports"/><br/>
+    
+      <label>Primary Relationships</label>
+      <input type="text" ng-model="$ctrl.editPrimary"/><br/>
+    
+      <label>Secondary Relationships</label>
+      <input type="text" ng-model="$ctrl.editSecondary"/><br/>
+      
+      <label>Resources</label>
+      <div class="resourceInput" ng-repeat="(key, value) in $ctrl.editResources">
+        <input class="resourceKey" ng-model="key"/>
+        <input class="resourceValue" ng-model="value"/>
+      </div>
     </div>
   </div>
 </div>

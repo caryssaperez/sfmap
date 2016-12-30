@@ -1,39 +1,30 @@
 var mapApp = angular.module('SFMap', ['ui.router','ngMaterial','ngMessages','material.svgAssetsCache']);
 
-mapApp.config(function($stateProvider) {
+mapApp.config(function($stateProvider, $locationProvider) {
   var states = [
-    // {
-    //   name: 'jobs',
-    //   url:'',
-    //   component: 'jobs',
-    //   resolve: {
-    //     jobs: function($http) {
-    //       $http.get('/jobs').success(function(res, req) {
-    //          console.log(res);
-    //          return res;
-    //       })
-    //       .error(function(){});
-    //     }
-    //   }
-    // },
     {
       name: 'jobs',
       url:'',
       component: 'jobs',
       resolve: {
-        jobs: function(PositionService) {
+        data: function(PositionService) {
           return PositionService.getAllPositions();
         }
       }
     },
     {
+      name: 'jobs.add',
+      url:'/add',
+      component: 'add'
+    },
+    {
       name: 'jobs.position',
-      url: '/{positionId}',
+      url: '/{positionPath}',
       component: 'position',
       resolve: {
-        position: function(jobs, $stateParams) {
-          return jobs.nodes.find(function(position) {
-            return position.id === $stateParams.positionId;
+        position: function(data, $stateParams) {
+          return data.find(function(position) {
+            return position.path === $stateParams.positionPath;
           });
         }
       }
@@ -43,4 +34,6 @@ mapApp.config(function($stateProvider) {
   states.forEach(function(state) {
     $stateProvider.state(state);
   });
+  
+  $locationProvider.html5Mode(true);
 });

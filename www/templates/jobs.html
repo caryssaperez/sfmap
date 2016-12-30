@@ -1,3 +1,10 @@
+<!-- Begin Add Button -->
+<div id="addBox">
+  <a ui-sref="jobs.add">+ Add Position</a>
+</div>
+<!-- End Add Button -->
+
+<!-- Begin Chart Directions -->
 <div id="directions">
   <md-button class="md-fab md-mini" aria-label="Directions">
     i
@@ -8,7 +15,9 @@
      </md-tooltip>
    </md-button>
 </div>
+<!-- End Chart Directions -->
 
+<!-- Begin Search -->
 <div id="searchBox">
   <md-content>
     <form ng-submit="$event.preventDefault()">
@@ -33,9 +42,12 @@
    </form>
  </md-content>
 </div>
+<!-- End Search -->
 
+<!-- Placeholder for Chart -->
 <div id="chart"></div>
 
-<div id="details">
+<!-- Placeholder for detailedLook and Add Position form -->
+<div id="nestedView">
   <ui-view></ui-view>
 </div>

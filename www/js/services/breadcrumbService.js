@@ -1,5 +1,5 @@
 mapApp.service('BreadcrumbService', function() {
-  var selectedId;
+  var selectedPath;
   var data;
   
   var setData = function(newData) {
@@ -7,11 +7,11 @@ mapApp.service('BreadcrumbService', function() {
   }
   
   var setSelected = function(selected) {
-    selectedId = selected;
+    selectedPath = selected;
   }
   
   var getSelected = function() {
-    return selectedId;
+    return selectedPath;
   }
   
   var getData = function() {

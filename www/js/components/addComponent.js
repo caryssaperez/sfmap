@@ -1,7 +1,7 @@
 mapApp.component('add', {
   templateUrl: 'templates/add.html',
   
-  controller : function($http, $log) {
+  controller : function($http, $log, $state) {
     var self = this;
     self.add;
     self.new = {};
@@ -32,7 +32,6 @@ mapApp.component('add', {
       
       // Process the data for the object variable
       var resources = self.tempRes.split(",");
-      $log.info(resources);
       var key = "";
       var value = "";
       var temp = "";
@@ -43,16 +42,14 @@ mapApp.component('add', {
         value = temp.substring(temp.indexOf(":") + 1, temp.length);
         self.new.resources[key] = value;
       }
-      
-      $log.info(self.new);
-      
-      // $http.post('/api/jobs', self.new)
-      //      .success(function(data) {
-      //        
-      //      })
-      //      .error(function(data) {
-      //        alert("Sorry, something went wrong.")
-      //      });
+            
+      $http.post('/api/jobs', self.new)
+           .success(function(data) {
+            $state.go('jobs.position', { positionPath: self.new.path });
+           })
+           .error(function(data) {
+             alert("Sorry, something went wrong.")
+           });
     }
   }
 })

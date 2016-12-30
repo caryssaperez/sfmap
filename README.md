@@ -7,6 +7,4 @@ organization.
 
 >Add tooltips for each form input
 
->Write documentation
-
->Add POST functionality to add new position, verify chart updates
+>Extract data and put in data folder

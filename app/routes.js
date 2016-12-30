@@ -42,47 +42,41 @@ router.route('/jobs/:positionId')
     })
   })
   .put(function(req,res) {
-    Position.findById(req.params.positionId, function(err, position) {
-			console.log(req.body);
+    Position.findById(req.params.positionId, function(err, updatePosition) {
       if(err) {
          return res.send(err);
       }
+			updatePosition.path = req.body.path;
+			updatePosition.name = req.body.name;
+			updatePosition.team = req.body.team;
+			updatePosition.cloud = req.body.cloud;
+			updatePosition.parent = req.body.parent;
+			updatePosition.description = req.body.description;
+			updatePosition.reports = req.body.reports;
+			updatePosition.primary = req.body.primary;
+			updatePosition.secondary = req.body.secondary;
+			updatePosition.resources = {};
+			updatePosition.resources = req.body.resources;
 			
-			if(req.body.path) {
-				position.path = req.body.path;
-			}
-			if(req.body.name) {
-				position.name = req.body.name;
-			}
-			if(req.body.team) {
-				position.team = req.body.team;
-			}
-			if(req.body.cloud) {
-				position.cloud = req.body.cloud;
-			}
-			if(req.body.parent) {
-				position.parent = req.body.parent;
-			}
-      if(req.body.description) {
-				position.description = req.body.description;
-			}   
-			if(req.body.reports) {
-				position.reports = req.body.reports;
-			}
-			if(req.body.primary) {
-				position.primary = req.body.primary;
-			} 
-			if(req.body.secondary) {
-				position.secondary = req.body.secondary;
-			}    
-      
-			position.save(function(err) {
+			console.log(updatePosition);
+			updatePosition.save(function(err) {
         if(err) {
            return res.send(err);
         }
-        return res.json(position);
+        return res.json(updatePosition);
       });
     });
-  });
+  })
+	.delete(function(req, res) {
+		Position.remove({
+			_id: req.params.positionId
+		}, function(err, deletePosition) {
+			if (err) {
+				return res.send(err);
+			}
+
+			return res.json({ message: 'Successfully deleted' });
+		});
+	});
   
 module.exports = router;

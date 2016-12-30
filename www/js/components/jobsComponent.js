@@ -4,7 +4,7 @@ mapApp.component('jobs', {
   
   controller : function($timeout, $q, $log, $state, BreadcrumbService) {
     var self = this;
-    var data =  self.data;  
+    var data = self.data;  
     
     // Function placed on scope to set the selected node using the BreadcrumbService
     self.updateSelected = function(selected) {
@@ -499,7 +499,7 @@ mapApp.component('jobs', {
             }
           }
         }
-                        
+            
         // Links are currently mapped between the nodes in JSON so they need to
         // reworked to point at the node objects instead
         links.forEach(function(l) {

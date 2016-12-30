@@ -24,7 +24,7 @@ mapApp.component('position', {
     self.editReports = [];
     self.editPrimary= [];
     self.editSecondary = [];
-    self.editResources = {};
+    self.editResources = "";
       
   //-----------------------------
   // BEGIN BREADCRUMBS
@@ -48,7 +48,7 @@ mapApp.component('position', {
             path.pop();
           }
         }
-      } else { // Not the right object, return false so it will continue to iterate in the loop
+      } else { // Not the right object, return false 
         return false;
       }
     }  
@@ -74,20 +74,91 @@ mapApp.component('position', {
       self.editReports = self.position.reports;
       self.editPrimary = self.position.primary;
       self.editSecondary = self.position.secondary;
-      self.editResources = self.position.resources;
+      
+      self.editResources = "";
+      var count = Object.keys(self.position.resources).length;
+      var i = 0;
+      for (var key in self.position.resources) {
+        i++;
+        if(self.position.resources.hasOwnProperty(key) && (i <= (count - 1)) ) {
+          self.editResources += key + ":" + self.position.resources[key] + ",";
+        } else {
+          self.editResources += key + ":" + self.position.resources[key];
+        }
+      }
     }
     
     self.save = function() {
-      self.position.path = self.editPath;
-      self.position.name = self.editName;
-      self.position.team = self.editTeam;
-      self.position.cloud = self.editCloud;
-      self.position.description = self.editDescription;
-      self.position.primary = self.editPrimary;
-      self.position.parent = self.editParent;
-      self.position.reports = self.editReports;
-      self.position.secondary = self.editSecondary;
-      self.position.resources = self.editResources;
+      // Assign values from inputs to the position, handling empty values
+      if(!self.editPath) {
+        self.position.path = null;
+      } else {
+        self.position.path = self.editPath;
+      }
+      
+      if(!self.editName) {
+        self.position.name = null;
+      } else {
+        self.position.name = self.editName;
+      }
+      
+      if(!self.editTeam) {
+        self.position.team = null;
+      } else {
+        self.position.team = self.editTeam;
+      }
+      
+      if(!self.editCloud) {
+        self.position.cloud = null;
+      } else {
+        self.position.cloud = self.editCloud;
+      }
+      
+      if(!self.editDescription) {
+        self.position.description = null;
+      } else {
+        self.position.description = self.editDescription;
+      }
+      
+      if(!self.editParent) {
+        self.position.parent = null;
+      } else {
+        self.position.parent = self.editParent;
+      }
+      
+      if(self.editReports.length == 0) {
+        self.position.reports = [];
+      } else {
+        arrayRep = self.editReports.split(",");
+        self.position.reports = arrayRep;
+      }
+      
+      if(self.editPrimary.length == 0) {
+        self.position.primary = [];
+      } else {
+        self.position.primary = self.editPrimary;
+      }
+      
+      if(self.editSecondary.length == 0) {
+        self.position.secondary = [];
+      } else {
+        self.position.secondary = self.editSecondary;
+      }
+      
+      var resources = self.editResources.split(",");
+      var key;
+      var value;
+      var temp;
+      self.position.resources = {};
+      
+      for(var i = 0; i < resources.length; i++) {
+        temp = resources[i];
+        key = temp.substring(0, temp.indexOf(":"));
+        value = temp.substring(temp.indexOf(":") + 1, temp.length);
+        self.position.resources[key] = value;
+      }
+      
+      $log.info(self.position);
       
       $http.put('/api/jobs/' + self.position._id, self.position)
            .success(function(data) {

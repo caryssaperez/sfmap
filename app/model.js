@@ -41,7 +41,7 @@ var positionSchema = new Schema({
   reports: Array,
   primary: Array,
   secondary: Array,
-  resources: Object
+  resources: Schema.Types.Mixed
 });
 
 // Expose this for use elsewhere
